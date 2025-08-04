@@ -42,7 +42,7 @@ A Flask-based web application that helps users discover affordable beauty produc
 ---
 
 ## 🗂️ Project Structure
-
+```
 beauty-dupes/
 ├── app.py # Main Flask app
 ├── templates/ # HTML templates
@@ -55,7 +55,7 @@ beauty-dupes/
 ├── requirements.txt
 ├── .gitignore
 └── README.md
-
+```
 
 ---
 
