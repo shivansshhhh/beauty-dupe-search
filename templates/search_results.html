@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Search Results - Beauty Dupes</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Great+Vibes&display=swap"
+        rel="stylesheet" />
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ffd6e8, #fff0f6);
+            padding: 40px 15px;
+            color: #4a004e;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: auto;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 30px;
+            color: #e91e63;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .original-product,
+        .dupe-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 8px 20px rgba(233, 30, 99, 0.15);
+            margin-bottom: 30px;
+            transition: transform 0.3s ease;
+        }
+
+        .original-product:hover,
+        .dupe-card:hover {
+            transform: scale(1.02);
+        }
+
+        .product-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #c2185b;
+        }
+
+        .product-price {
+            color: #880e4f;
+            font-weight: 500;
+        }
+
+        .dupes-section h3 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2rem;
+            color: #e91e63;
+            margin-bottom: 20px;
+        }
+
+        .dupe-card img {
+            max-width: 100%;
+            max-height: 150px;
+            object-fit: contain;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .no-dupes {
+            font-style: italic;
+            color: #6d0033;
+        }
+
+        .general-results ul {
+            padding-left: 1rem;
+        }
+
+        .general-results li {
+            margin-bottom: 10px;
+        }
+
+        .btn-view {
+            color: #e91e63;
+            text-decoration: none;
+            margin-left: 10px;
+            font-weight: 600;
+        }
+
+        .btn-view:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <a href="{{ url_for('index') }}" class="back-link">← Back to Home</a>
+
+        {% if product %}
+        <!-- Original Product Display in Left Corner -->
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="dupe-card text-center">
+                    {% if product['image'] %}
+                    <img src="{{ url_for('static', filename='uploads/' + product['image']) }}"
+                        alt="{{ product['name'] }}" />
+                    {% else %}
+                    <div class="text-muted small mb-2">No image</div>
+                    {% endif %}
+                    <div class="fw-semibold">{{ product['brand'] }} - {{ product['name'] }}</div>
+                    <div class="text-muted">{{ product['color'] }}</div>
+                    <div class="product-price">₹{{ product['price'] }}</div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <!-- Dupe Products Section -->
+        <div class="dupes-section">
+            <h3>Dupes</h3>
+
+            {% if dupes %}
+            <div class="row">
+                {% for dupe in dupes %}
+                <div class="col-md-4">
+                    <div class="dupe-card text-center">
+                        {% if dupe['image'] %}
+                        <img src="{{ url_for('static', filename='uploads/' + dupe['image']) }}"
+                            alt="{{ dupe['name'] }}" />
+                        {% else %}
+                        <div class="text-muted small mb-2">No image</div>
+                        {% endif %}
+                        <div class="fw-semibold">{{ dupe['brand'] }} - {{ dupe['name'] }}</div>
+                        <div class="text-muted">{{ dupe['color'] }}</div>
+                        <div class="product-price">₹{{ dupe['price'] }}</div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <p class="no-dupes">No cheaper dupes found.</p>
+            {% endif %}
+        </div>
+
+        {% elif products %}
+        <!-- General Results List -->
+        <div class="general-results">
+            <h3 class="mb-3">Search Results</h3>
+            <ul>
+                {% for p in products %}
+                <li>
+                    {{ p['brand'] }} - {{ p['name'] }} ({{ p['color'] }}) - ₹{{ p['price'] }}
+                    <a href="{{ url_for('search', query=p['name']) }}" class="btn-view">View Dupes</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        {% else %}
+        <!-- No Results -->
+        <p class="no-dupes">No results found for your search.</p>
+        {% endif %}
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
