@@ -128,6 +128,7 @@ python app.py
 ```
 
 ### Visit: http://localhost:5000
+---
 
 ### 🧱 Future Enhancements
     🔍 Barcode Search — Match products by barcode for faster lookup.
