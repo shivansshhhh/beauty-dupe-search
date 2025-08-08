@@ -117,11 +117,6 @@ source venv/bin/activate  # or venv\Scripts\activate on Windows
 pip install -r requirements.txt
 ```
 
-### Install dependencies
-```bash
-pip install -r requirements.txt
-```
-
 ### Run the application
 ```bash
 python app.py
@@ -155,5 +150,5 @@ python app.py
     Consider moving to PostgreSQL + cloud image storage for scalability
 
     ---
-### All set.
+### Now All Set.
 
